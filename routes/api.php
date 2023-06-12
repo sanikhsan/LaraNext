@@ -8,6 +8,7 @@ use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\MediaController;
 use App\Http\Controllers\API\MentorController;
 use App\Http\Controllers\API\MyCourseController;
+use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('chapter', ChapterController::class);
     Route::apiResource('lesson', LessonController::class);
     Route::apiResource('my-course', MyCourseController::class);
+    Route::apiResource('review', ReviewController::class);
 });
