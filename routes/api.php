@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CourseImageController;
 use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\MediaController;
 use App\Http\Controllers\API\MentorController;
+use App\Http\Controllers\API\MyCourseController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,23 +23,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']); 
-});
-
-
 // Auth Route
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-// Update Password User Route
-Route::post('user/{user}/password', [UserController::class, 'updatePassword']);
+Route::middleware('auth:sanctum')->group(function () {
+    // Update Password User Route
+    Route::post('user/{user}/password', [UserController::class, 'updatePassword']);
+    Route::post('logout', [AuthController::class, 'logout']); 
 
-// Route Resources
-Route::apiResource('media', MediaController::class);
-Route::apiResource('user', UserController::class);
-Route::apiResource('mentor', MentorController::class);
-Route::apiResource('course', CourseController::class);
-Route::apiResource('course-image', CourseImageController::class);
-Route::apiResource('chapter', ChapterController::class);
-Route::apiResource('lesson', LessonController::class);
+    // Route Resources
+    Route::apiResource('media', MediaController::class);
+    Route::apiResource('user', UserController::class);
+    Route::apiResource('mentor', MentorController::class);
+    Route::apiResource('course', CourseController::class);
+    Route::apiResource('course-image', CourseImageController::class);
+    Route::apiResource('chapter', ChapterController::class);
+    Route::apiResource('lesson', LessonController::class);
+    Route::apiResource('my-course', MyCourseController::class);
+});
