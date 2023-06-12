@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ChapterController;
 use App\Http\Controllers\API\CourseController;
 use App\Http\Controllers\API\MediaController;
 use App\Http\Controllers\API\MentorController;
@@ -36,3 +37,4 @@ Route::apiResource('media', MediaController::class);
 Route::apiResource('user', UserController::class);
 Route::apiResource('mentor', MentorController::class);
 Route::apiResource('course', CourseController::class);
+Route::apiResource('chapter', ChapterController::class);
