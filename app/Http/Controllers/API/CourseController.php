@@ -12,10 +12,23 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Get data course
+        $course = Course::where('status', 'Published')->paginate(9);
+
+        $search = $request->input('search');
+        if ($search) {
+            $course = Course::where('name','LIKE', '%'.$search.'%')->get();
+        }
+
+        $status = $request->input('status');
+        if ($status) {
+            $course = Course::where('status', $status)->get();
+        }
+
         return ResponseFormatter::success(
-            Course::paginate(9),
+            $course,
             'Semua data kursus berhasil diambil'
         );
     }
@@ -29,12 +42,12 @@ class CourseController extends Controller
             'name' => ['required', 'string'],
             'certificate' => ['required', 'boolean'],
             'thumbnail' => ['string', 'url'],
-            'type' => ['required', 'in:FREE, PREMIUM'],
-            'status' => ['required', 'in:Draft, Published'],
+            'type' => ['required', 'in:FREE,PREMIUM'],
+            'status' => ['required', 'in:Draft,Published'],
             'price' => ['required', 'integer'],
-            'level' => ['required', 'in:All-Level, Beginner, Intermediate, Advance'],
+            'level' => ['required', 'in:All-Level,Beginner,Intermediate,Advance'],
             'description' => ['string'],
-            'mentor_id' => ['required', 'exist:mentors,id']
+            'mentors_id' => ['required', 'exists:mentors,id']
         ]);
 
         $data = Course::create($request->all());
@@ -65,12 +78,12 @@ class CourseController extends Controller
             'name' => ['required', 'string'],
             'certificate' => ['required', 'boolean'],
             'thumbnail' => ['string', 'url'],
-            'type' => ['required', 'in:FREE, PREMIUM'],
-            'status' => ['required', 'in:Draft, Published'],
+            'type' => ['required', 'in:FREE,PREMIUM'],
+            'status' => ['required', 'in:Draft,Published'],
             'price' => ['required', 'integer'],
-            'level' => ['required', 'in:All-Level, Beginner, Intermediate, Advance'],
+            'level' => ['required', 'in:All-Level,Beginner,Intermediate,Advance'],
             'description' => ['string'],
-            'mentor_id' => ['required', 'exist:mentors,id']
+            'mentors_id' => ['required', 'exists:mentors,id']
         ]);
 
         $course->update($request->all());
