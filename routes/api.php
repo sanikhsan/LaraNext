@@ -34,3 +34,4 @@ Route::post('user/{user}/password', [UserController::class, 'updatePassword']);
 // Route Resources
 Route::apiResource('media', MediaController::class);
 Route::apiResource('user', UserController::class);
+Route::apiResource('mentor', MentorController::class);
