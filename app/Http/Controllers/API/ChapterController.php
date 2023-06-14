@@ -17,9 +17,9 @@ class ChapterController extends Controller
         // Get all course
         $course = Chapter::paginate(9);
         
-        $courses_id = $request->input('courses_id');
-        if ($courses_id) {
-            $course = Chapter::where('courses_id', $courses_id)->get();
+        $course_id = $request->input('course_id');
+        if ($course_id) {
+            $course = Chapter::where('course_id', $course_id)->get();
         }
 
         return ResponseFormatter::success(
@@ -35,12 +35,12 @@ class ChapterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string'],
-            'courses_id' => ['required', 'exists:courses,id']
+            'course_id' => ['required', 'exists:courses,id']
         ]);
 
         $data = Chapter::create([
             'name' => $request->name,
-            'courses_id' => $request->courses_id
+            'course_id' => $request->course_id
         ]);
 
         return ResponseFormatter::success(
@@ -64,12 +64,12 @@ class ChapterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string'],
-            'courses_id' => ['required', 'exists:courses,id']
+            'course_id' => ['required', 'exists:courses,id']
         ]);
 
         $chapter->update([
             'name' => $request->name,
-            'courses_id' => $request->courses_id
+            'course_id' => $request->course_id
         ]);
 
         return ResponseFormatter::success(

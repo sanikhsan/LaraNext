@@ -18,10 +18,10 @@ class LessonController extends Controller
         $lesson = Lesson::paginate(9);
 
         // Filter lesson by chapter
-        $chapters_id = $request->input('chapters_id');
+        $chapter_id = $request->input('chapter_id');
 
-        if ($chapters_id) {
-            $lesson = Lesson::where('chapters_id', $chapters_id);
+        if ($chapter_id) {
+            $lesson = Lesson::where('chapter_id', $chapter_id);
         }
 
         return ResponseFormatter::success(
@@ -38,13 +38,13 @@ class LessonController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'video' => ['required', 'url'],
-            'chapters_id' => ['required', 'exists:chapters,id']
+            'chapter_id' => ['required', 'exists:chapters,id']
         ]);
 
         $data = Lesson::create([
             'name' => $request->name,
             'video' => $request->video,
-            'chapters_id' => $request->chapters_id
+            'chapter_id' => $request->chapter_id
         ]);
 
         return ResponseFormatter::success(
@@ -69,13 +69,13 @@ class LessonController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'video' => ['required', 'url'],
-            'chapters_id' => ['required', 'exists:chapters,id']
+            'chapter_id' => ['required', 'exists:chapters,id']
         ]);
 
         $lesson->update([
             'name' => $request->name,
             'video' => $request->video,
-            'chapters_id' => $request->chapters_id
+            'chapter_id' => $request->chapter_id
         ]);
 
         return ResponseFormatter::success(

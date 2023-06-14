@@ -16,7 +16,7 @@ class MyCourseController extends Controller
     public function index(Request $request)
     {
         return ResponseFormatter::success(
-            MyCourse::where('users_id', $request->user()->id)->get(),
+            MyCourse::where('user_id', $request->user()->id)->get(),
             'Data Course berhasil diambil'
         );
     }
@@ -27,13 +27,13 @@ class MyCourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'users_id' => ['exists:users,id'],
-            'courses_id' => ['required', 'exists:courses,id', 'unique:courses,id']
+            'user_id' => ['exists:users,id'],
+            'course_id' => ['required', 'exists:courses,id']
         ]);
 
         $data = MyCourse::create([
-            'users_id' => $request->user()->id,
-            'courses_id' => $request->courses_id
+            'user_id' => $request->user()->id,
+            'course_id' => $request->course_id
         ]);
 
         return ResponseFormatter::success(

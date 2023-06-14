@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
@@ -20,11 +21,6 @@ class Course extends Model
         'price',
         'level',
         'description',
-        'mentors_id'
+        'mentor_id'
     ];
-
-    public function Mentor(): BelongsTo
-    {
-        return $this->belongsTo(Mentor::class);
-    }
 }

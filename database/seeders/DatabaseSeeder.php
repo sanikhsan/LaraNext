@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersTableSeeder::class,
+            MentorTableSeeder::class,
+            CourseTableSeeder::class,
+            CourseImageTableSeeder::class,
+            ChapterTableSeeder::class,
+            LessonTableSeeder::class,
         ]);
     }
 }

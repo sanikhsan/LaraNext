@@ -28,12 +28,12 @@ class CourseImageController extends Controller
     {
         $request->validate([
             'image' => ['required', 'url'],
-            'courses_id' => ['required', 'exists:courses,id']
+            'course_id' => ['required', 'exists:courses,id']
         ]);
 
         $data = CourseImage::create([
             'image' => $request->image,
-            'courses_id' => $request->courses_id
+            'course_id' => $request->course_id
         ]);
         
         return ResponseFormatter::success(

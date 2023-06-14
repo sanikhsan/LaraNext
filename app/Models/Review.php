@@ -4,15 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'users_id',
-        'courses_id',
+        'user_id',
+        'course_id',
         'rating',
         'note'
     ];
+
+    public function User(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

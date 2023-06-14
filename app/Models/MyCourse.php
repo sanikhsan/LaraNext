@@ -10,7 +10,7 @@ class MyCourse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'courses_id',
-        'users_id'
+        'course_id',
+        'user_id'
     ];
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('price')->default(0);
             $table->enum('level', ['All-Level', 'Beginner', 'Intermediate', 'Advance']);
             $table->longText('description')->nullable();
-            $table->foreignId('mentors_id')->constrained('mentors')->onDelete('cascade');
+            $table->foreignId('mentor_id')->constrained('mentors')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

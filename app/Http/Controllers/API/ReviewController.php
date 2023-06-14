@@ -16,7 +16,7 @@ class ReviewController extends Controller
     public function index(Request $request)
     {
         return ResponseFormatter::success(
-            Review::where('courses_id', $request->courses_id)->get(),
+            Review::where('course_id', $request->course_id)->get(),
             'Data semua Review pada Course ini berhasil diambil'
         );
     }
@@ -27,15 +27,15 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'users_id' => ['exists:users,id', 'numeric'],
-            'courses_id' => ['required', 'exists:courses,id', 'numeric', 'unique:courses,id'],
+            'user_id' => ['exists:users,id', 'numeric'],
+            'course_id' => ['required', 'exists:courses,id', 'numeric'],
             'rating' => ['required', 'numeric', 'min:1', 'max:5'],
             'note' => ['string'],
         ]);
 
         $data = Review::create([
-            'users_id' => $request->user()->id,
-            'courses_id' => $request->courses_id,
+            'user_id' => $request->user()->id,
+            'course_id' => $request->course_id,
             'rating' => $request->rating,
             'note' => $request->note
         ]);
@@ -52,7 +52,7 @@ class ReviewController extends Controller
     public function show(Review $review)
     {
         return ResponseFormatter::success(
-            $review->where('users_id', Auth::user()->id)->get(),
+            $review->where('user_id', Auth::user()->id)->get(),
             'Data review course berhasil diambil'
         );
     }
@@ -63,8 +63,8 @@ class ReviewController extends Controller
     public function update(Request $request, Review $review)
     {
         $request->validate([
-            'users_id' => ['exists:users,id', 'numeric'],
-            'courses_id' => ['exists:courses,id', 'numeric', 'unique:courses,id,'.$review->id.',id'],
+            'user_id' => ['exists:users,id', 'numeric'],
+            'course_id' => ['exists:courses,id', 'numeric', 'unique:courses,id,'.$review->id.',id'],
             'rating' => ['required', 'numeric', 'min:1', 'max:5'],
             'note' => ['string'],
         ]);

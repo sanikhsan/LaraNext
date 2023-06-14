@@ -4,7 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\CourseImage;
+use App\Models\Mentor;
+use App\Models\MyCourse;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -47,7 +52,7 @@ class CourseController extends Controller
             'price' => ['required', 'integer'],
             'level' => ['required', 'in:All-Level,Beginner,Intermediate,Advance'],
             'description' => ['string'],
-            'mentors_id' => ['required', 'exists:mentors,id']
+            'mentor_id' => ['required', 'exists:mentors,id']
         ]);
 
         $data = Course::create($request->all());
@@ -63,6 +68,12 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $course['reviews'] = Review::with('User')->where('course_id', $course->id)->get();
+        $course['total_student'] = MyCourse::where('course_id', $course->id)->count();
+        $course['chapters'] = Chapter::with('Lessons')->where('course_id', $course->id)->get();
+        $course['mentor'] = Mentor::where('id', $course->mentor_id)->get();
+        $course['images'] = CourseImage::where('course_id', $course->id)->get();
+        
         return ResponseFormatter::success(
             $course,
             'Data kursus berhasil diambil'
@@ -83,7 +94,7 @@ class CourseController extends Controller
             'price' => ['required', 'integer'],
             'level' => ['required', 'in:All-Level,Beginner,Intermediate,Advance'],
             'description' => ['string'],
-            'mentors_id' => ['required', 'exists:mentors,id']
+            'mentor_id' => ['required', 'exists:mentors,id']
         ]);
 
         $course->update($request->all());
