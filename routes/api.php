@@ -8,8 +8,10 @@ use App\Http\Controllers\API\LessonController;
 use App\Http\Controllers\API\MediaController;
 use App\Http\Controllers\API\MentorController;
 use App\Http\Controllers\API\MyCourseController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\Other\TripayCallbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
+// Route Tripay Webhook
+Route::post('tripay-webhook', [TripayCallbackController::class, 'handle']);
+
 Route::middleware('auth:sanctum')->group(function () {
     // Update Password User Route
     Route::post('user/{user}/password', [UserController::class, 'updatePassword']);
@@ -43,4 +48,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lesson', LessonController::class);
     Route::apiResource('my-course', MyCourseController::class);
     Route::apiResource('review', ReviewController::class);
+    Route::apiResource('order', OrderController::class)->only(['index', 'store']);
 });

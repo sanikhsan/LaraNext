@@ -27,12 +27,13 @@ class MyCourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => ['exists:users,id'],
+            'user_id' => ['required','exists:users,id'],
             'course_id' => ['required', 'exists:courses,id']
         ]);
 
         $data = MyCourse::create([
-            'user_id' => $request->user()->id,
+            // 'user_id' => $request->user()->id,
+            'user_id' => $request->user_id,
             'course_id' => $request->course_id
         ]);
 

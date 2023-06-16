@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Helpers\Base64Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
