@@ -11,6 +11,12 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+        $this->middleware('setRole:student');
+    }
+
     /**
      * Display a listing of the resource.
      */

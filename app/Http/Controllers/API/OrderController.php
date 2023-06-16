@@ -16,6 +16,12 @@ class OrderController extends Controller
     protected $apiKey = 'DEV-w0Bow1hbgdvV0Xp92qxzwFlMOpNXQ4QYw48daTcw';
     protected $privateKey = 'lPrXv-lwndJ-aqKhJ-kAwcQ-exYQW';
 
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+        $this->middleware('setRole:student');
+    }
+
     /**
      * Display a listing of the resource.
      */

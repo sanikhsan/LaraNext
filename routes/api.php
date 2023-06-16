@@ -36,6 +36,8 @@ Route::post('tripay-webhook', [TripayCallbackController::class, 'handle']);
 Route::middleware('auth:sanctum')->group(function () {
     // Update Password User Route
     Route::post('user/{user}/password', [UserController::class, 'updatePassword']);
+
+    // Logout / Destroy Token
     Route::post('logout', [AuthController::class, 'logout']); 
 
     // Route Resources
@@ -43,10 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('user', UserController::class);
     Route::apiResource('mentor', MentorController::class);
     Route::apiResource('course', CourseController::class);
-    Route::apiResource('course-image', CourseImageController::class);
-    Route::apiResource('chapter', ChapterController::class);
+    Route::apiResource('course-image', CourseImageController::class)->only(['store','destroy']);
+    Route::apiResource('chapter', ChapterController::class)->except('show');
     Route::apiResource('lesson', LessonController::class);
-    Route::apiResource('my-course', MyCourseController::class);
+    Route::apiResource('my-course', MyCourseController::class)->only(['index', 'store']);
     Route::apiResource('review', ReviewController::class);
     Route::apiResource('order', OrderController::class)->only(['index', 'store']);
 });

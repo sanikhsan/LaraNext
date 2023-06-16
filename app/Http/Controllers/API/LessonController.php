@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+        $this->middleware('setRole:student')->only(['index']);
+    }
+    
     /**
      * Display a listing of the resource.
      */

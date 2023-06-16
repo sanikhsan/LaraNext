@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class MyCourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+        $this->middleware('setRole:student')->only(['index']);
+    }
+    
     /**
      * Display a listing of the resource.
      */

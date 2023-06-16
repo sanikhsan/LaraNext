@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class MentorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+        $this->middleware('setRole:student')->only(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */

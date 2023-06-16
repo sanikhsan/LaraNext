@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CourseImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('setRole:admin');
+    }
+    
     /**
      * Display a listing of the resource.
      * 
